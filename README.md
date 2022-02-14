@@ -1,4 +1,4 @@
-# Try Django 3.2.8
+# My Portfolio
 
 ## Getting Started
 1. Make virtual environment by running `python -m venv venv/`
