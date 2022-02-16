@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> {{ professional_summary.title }} </h1>
-<p> {{ professional_summary.content }} </p>
+<!-- Professional Summary -->
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5 text-dark">
+        <h1 class="display-5 fw-bold">{{ professional_summary.title }}</h1>
+        <p class="col-md-8 fs-4">{{ professional_summary.content }}</p>
+    </div>
+</div>
 
-<h1>About me</h1>
-<p>{{ about.description }}</p>
-
-{% if about.resume_url %}
-    <a href="{{ about.resume_url }}" class="btn btn-outline-dark" download="">My Resume</a>
-{% endif %}
+<!-- About me -->
+<div class="row featurette" id="about-me">
+    <div class="col-md-7 order-md-2">
+        <h2 class="fw-bold">About me</h2>
+        <p class="lead">{{ about.description }}</p>
+        
+        {% if about.resume_url %}
+            <p class="lead">
+                <a href="{{ about.resume_url }}" class="btn btn-outline-light" download="">My Resume</a>
+                <small>Last updated: {{ about.updated.date }}<small>
+            </p>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-5 order-md-1">
+        <img src="{{ about.photo_url }}" alt="me" class="about-me">
+    </div>
+</div>
 
 {% endblock content %}

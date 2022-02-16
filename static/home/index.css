@@ -1,0 +1,36 @@
+a.icon-block {
+    color:#fff;
+    display:inline-block;
+    padding:5px 5px 5px 5px;
+    text-align:center;
+}
+
+.about-me{
+    object-fit: contain;
+    border-radius: 10px 10px 10px 10px;
+    max-height:400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.project-img{
+    object-fit: contain;
+    max-height: 225px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.project-img-blur{
+    /* Blur effect */
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    /* Center */
+    object-fit: cover;
+    object-position: center;
+    max-height: 225px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
