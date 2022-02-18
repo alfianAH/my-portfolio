@@ -17,7 +17,7 @@ class GameProject(models.Model):
 
 
 class GameDetail(models.Model):
-    project = models.ForeignKey(GameProject, on_delete=models.CASCADE)
+    project = models.OneToOneField(GameProject, on_delete=models.CASCADE)
     status = models.CharField(max_length=1, choices=GameStatus.choices, default=GameStatus.COMPLETED)
     platform = models.CharField(max_length=20)
     genre = models.CharField(max_length=100)
