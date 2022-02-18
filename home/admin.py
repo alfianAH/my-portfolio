@@ -7,12 +7,12 @@ from .models import(
 
 # Register your models here.
 class ProfessionalSummaryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'content']
+    list_display = ['id', 'title', 'content']
     readonly_fields = ['created', 'updated']
 
 
 class AboutAdmin(admin.ModelAdmin):
-    list_display = ['description', 'photo_url', 'resume_url']
+    list_display = ['id', 'description']
     readonly_fields = ['created', 'updated']
 
 

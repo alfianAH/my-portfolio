@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # Internal
     'home',
+    'game',
 ]
 
 MIDDLEWARE = [
@@ -86,11 +87,8 @@ WSGI_APPLICATION = 'my_portfolio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': os.environ.get('MONGODB_DB'),
-        'CLIENT': {
-           'host': os.environ.get('MONGODB_URL'),
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
