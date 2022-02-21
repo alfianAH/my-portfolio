@@ -29,3 +29,11 @@ class GameDetail(models.Model):
 class GameCarousel(models.Model):
     project = models.ForeignKey(GameProject, on_delete=models.CASCADE)
     url = models.CharField(max_length=200, validators=[validate_url])
+
+
+class MyProject(GameProject):
+    pass
+
+
+class EducationalPurposedProject(GameProject):
+    pass

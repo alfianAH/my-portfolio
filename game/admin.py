@@ -1,9 +1,10 @@
 from django.contrib import admin
 
 from .models import (
+    EducationalPurposedProject,
     GameCarousel,
     GameDetail, 
-    GameProject
+    MyProject
 )
 
 class GameCarouselInline(admin.StackedInline):
@@ -23,4 +24,5 @@ class GameProjectAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(GameProject, GameProjectAdmin)
+admin.site.register(EducationalPurposedProject, GameProjectAdmin)
+admin.site.register(MyProject, GameProjectAdmin)

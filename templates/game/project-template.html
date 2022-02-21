@@ -1,0 +1,11 @@
+<h2 class="text-white fw-bold">{{ project_title }}</h2>
+
+<div class="album py-5">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="project">
+            {% include 'game/game-card.html' with game=game carousel_name=carousel_name %}
+        </div>
+    </div>
+</div>
+
+<hr class="featurette-divider">
