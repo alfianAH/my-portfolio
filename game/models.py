@@ -1,6 +1,7 @@
 from django.db import models
 
 from home.validators import validate_url
+from my_portfolio.utils import DRIVE_PHOTO_URL
 
 # Create your models here.
 class GameStatus(models.TextChoices):
@@ -28,7 +29,7 @@ class GameDetail(models.Model):
 
 class GameCarousel(models.Model):
     project = models.ForeignKey(GameProject, on_delete=models.CASCADE)
-    url = models.CharField(max_length=200, validators=[validate_url])
+    url = models.CharField(max_length=200, default=DRIVE_PHOTO_URL, validators=[validate_url])
 
 
 class MyProject(GameProject):

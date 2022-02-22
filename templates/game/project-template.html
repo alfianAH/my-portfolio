@@ -3,7 +3,9 @@
 <div class="album py-5">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="project">
-            {% include 'game/game-card.html' with game=game carousel_name=carousel_name %}
+            {% for project in projects %}
+                {% include 'game/game-card.html' with game=project carousel_name=project.title %}
+            {% endfor %}
         </div>
     </div>
 </div>

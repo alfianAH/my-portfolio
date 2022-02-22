@@ -9,6 +9,17 @@
     </div>
 </div>
 
+<!-- Projects -->
+<div class="row align-items-md-stretch" id="projects">
+    {% if my_projects %}
+        {% include 'game/project-template.html' with project_title='My Projects' projects=my_projects %}
+    {% endif %}
+
+    {% if edu_projects %}
+        {% include 'game/project-template.html' with project_title='Educational Purposed Projects' projects=edu_projects %}
+    {% endif %}
+</div>
+
 <!-- About me -->
 <div class="row featurette" id="about-me">
     <div class="col-md-7 order-md-2">

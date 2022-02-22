@@ -2,26 +2,38 @@
     <div class="card shadow-sm">
 
         <div id="{{ carousel_name }}" class="carousel slide" data-bs-ride="carousel">
-            {% for carousel in game_carousels %}
-                <div class="carousel-indicators">
-                
+            <div class="carousel-indicators">
+                {% for carousel in game.gamecarousel_set.all %}
                     {% if forloop.first %}
                         <button type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
                     {% else %}
                         <button type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter0 }}"></button>
                     {% endif %}
-                </div>
+                {% endfor %}
+            </div>
 
-                <div class="carousel-inner">
-                    <div class="carousel-item">
-                        <svg class="bd-placeholder-img" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img-blur">
-                            <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img">
-                        </svg>
-                    </div>
-                </div>
-            {% endfor %}
+            <div class="carousel-inner">
+                {% for carousel in game.gamecarousel_set.all %}
+                    {% if forloop.first %}
+                        <div class="carousel-item active">
+                            <svg class="bd-placeholder-img" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img-blur">
+                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img">
+                            </svg>
+                        </div>
+                    {% else %}
+                        <div class="carousel-item">
+                            <svg class="bd-placeholder-img" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img-blur">
+                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img">
+                            </svg>
+                        </div>
+                    {% endif %}
+                    
+                {% endfor %}
+            </div>
 
             <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -42,11 +54,11 @@
 
             <!-- Details -->
             <ul class="list-unstyled mb-4">
-                <li><b>Status: </b>{{ game.detail.status }}</li>
-                <li><b>Platform: </b>{{ game.detail.platform }}</li>
-                <li><b>Genre: </b>{{ game.detail.genre }}</li>
-                <li><b>Engine: </b>{{ game.detail.engine }}</li>
-                <li><b>Language(s): </b>{{ game.detail.language }}</li>
+                <li><b>Status: </b>{{ game.gamegamedetail.status }}</li>
+                <li><b>Platform: </b>{{ game.gamedetail.platform }}</li>
+                <li><b>Genre: </b>{{ game.gamedetail.genre }}</li>
+                <li><b>Engine: </b>{{ game.gamedetail.engine }}</li>
+                <li><b>Language(s): </b>{{ game.gamedetail.language }}</li>
                 <li><b>Team: </b>
                     <ul>
                         <li>Solo project</li>
