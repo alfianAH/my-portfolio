@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_save, post_save
+from django.urls import reverse
 
 from .utils import slugify_instance_title
 from home.validators import validate_url
@@ -19,8 +20,8 @@ class GameProject(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    def get_detail_url(self):
+        return reverse('game:detail', kwargs={'slug': self.slug})
 
 
 class GameDetail(models.Model):
