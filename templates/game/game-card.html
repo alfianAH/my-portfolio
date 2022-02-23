@@ -1,13 +1,13 @@
 <div class="col-md-6">
     <div class="card shadow-sm">
 
-        <div id="{{ carousel_name }}" class="carousel slide" data-bs-ride="carousel">
+        <div id="{% if game.slug %}{{ game.slug }}{% endif %}" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 {% for carousel in game.gamecarousel_set.all %}
                     {% if forloop.first %}
-                        <button type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
+                        <button type="button" data-bs-target="#{{ game.slug }}" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
                     {% else %}
-                        <button type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter0 }}"></button>
+                        <button type="button" data-bs-target="#{{ game.slug }}" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter0 }}"></button>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -34,16 +34,18 @@
                     
                 {% endfor %}
             </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
             
-            <button class="carousel-control-next" type="button" data-bs-target="#{{ carousel_name }}" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            {% if game.gamecarousel_set.all %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#{{ game.slug }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                
+                <button class="carousel-control-next" type="button" data-bs-target="#{{ game.slug }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            {% endif %}
         </div>
         
         <div class="card-body bg-dark text-white">
@@ -54,14 +56,18 @@
 
             <!-- Details -->
             <ul class="list-unstyled mb-4">
-                <li><b>Status: </b>{{ game.gamegamedetail.status }}</li>
+                <li><b>Status: </b>{{ game.gamedetail.get_status_display }}</li>
                 <li><b>Platform: </b>{{ game.gamedetail.platform }}</li>
                 <li><b>Genre: </b>{{ game.gamedetail.genre }}</li>
                 <li><b>Engine: </b>{{ game.gamedetail.engine }}</li>
                 <li><b>Language(s): </b>{{ game.gamedetail.language }}</li>
-                <li><b>Team: </b>
+                <li><b>Team: </b> 
                     <ul>
-                        <li>Solo project</li>
+                        {% for team_member in game.gamedetail.parse_team %}
+                            {% if team_member %}
+                                <li>{{ team_member }}</li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </li>
             </ul>

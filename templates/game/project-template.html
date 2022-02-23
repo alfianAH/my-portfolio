@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="project">
             {% for project in projects %}
-                {% include 'game/game-card.html' with game=project carousel_name=project.title %}
+                {% include 'game/game-card.html' with game=project %}
             {% endfor %}
         </div>
     </div>
