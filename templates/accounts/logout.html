@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+    <h1 class="fw-bold">Logout</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>Do you want to logout?</p>
+
+        <button type="submit" class="btn btn-outline-danger">Yes</button>
+        <a href='/' class="btn btn-outline-light">Cancel</a>
+    </form>
+{% else %}
+    <meta http-equiv="Refresh" content="0; url='/'" />
+{% endif %}
+{% endblock content %}
