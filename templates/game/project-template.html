@@ -10,4 +10,8 @@
     </div>
 </div>
 
+{% for project in projects %}
+    {% include 'game/detail.html' with game=project %}
+{% endfor %}
+
 <hr class="featurette-divider">

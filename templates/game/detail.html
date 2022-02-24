@@ -1,34 +1,43 @@
-{% extends "base.html" %}
+<div class="modal fade" id="modal_{{ game.slug }}" tabindex="-1" aria-labelledby="{{ game.slug }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h1 class="fw-bold">{{ game.title }}</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <p>{{ game.description }}</p>
 
-{% block content %}
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <h1 class="fw-bold">{{ game.title }}</h1>
-    
-    <p>{{ game.description }}</p>
+                <!-- Details -->
+                <ul class="list-unstyled mb-4">
+                    <li><b>Status: </b>{{ game.gamedetail.get_status_display }}</li>
+                    <li><b>Platform: </b>{{ game.gamedetail.platform }}</li>
+                    <li><b>Genre: </b>{{ game.gamedetail.genre }}</li>
+                    <li><b>Engine: </b>{{ game.gamedetail.engine }}</li>
+                    <li><b>Language(s): </b>{{ game.gamedetail.language }}</li>
+                    <li><b>Team: </b> 
+                        <ul>
+                            {% for team_member in game.gamedetail.parse_team %}
+                                {% if team_member %}
+                                    <li>{{ team_member }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                
+                <!-- Link play -->
+                <div class="d-flex align-items-center">
+                    <div class="btn-group">
+                        <a href="{{ game.play_url }}" class="btn btn-outline-warning">Play</a>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Details -->
-    <ul class="list-unstyled mb-4">
-        <li><b>Status: </b>{{ game.gamedetail.get_status_display }}</li>
-        <li><b>Platform: </b>{{ game.gamedetail.platform }}</li>
-        <li><b>Genre: </b>{{ game.gamedetail.genre }}</li>
-        <li><b>Engine: </b>{{ game.gamedetail.engine }}</li>
-        <li><b>Language(s): </b>{{ game.gamedetail.language }}</li>
-        <li><b>Team: </b> 
-            <ul>
-                {% for team_member in game.gamedetail.parse_team %}
-                    {% if team_member %}
-                        <li>{{ team_member }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </li>
-    </ul>
-    
-    <!-- Link play -->
-    <div class="d-flex align-items-center">
-        <div class="btn-group">
-            <a href="{{ game.play_url }}" class="btn btn-outline-light">Play</a>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
-{% endblock content %}

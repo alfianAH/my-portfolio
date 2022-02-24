@@ -57,7 +57,9 @@
             <!-- Link play -->
             <div class="d-flex align-items-center">
                 <div class="btn-group me-2">
-                    <a href="{{ game.get_detail_url }}" class="btn btn-outline-light">Details</a>
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modal_{{ game.slug }}">
+                        Details
+                    </button>
                 </div>
                 <div class="btn-group">
                     <a href="{{ game.play_url }}" class="btn btn-outline-light">Play</a>
