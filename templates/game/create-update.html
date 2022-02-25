@@ -1,0 +1,21 @@
+<div class="modal fade" 
+    id="{% if game.id %}update-{{ game.slug }}{% else %}create-project{% endif %}" tabindex="-1" 
+    aria-labelledby="{% if game.id %}update-{{ game.slug }}{% else %}create-project{% endif %}Label" 
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-dark">
+
+            <div class="modal-header">
+                <h1 class="modal-title fw-bold">
+                    {% if game.id %}{{ game.title }} {% else %}Create game{% endif %}
+                </h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% include 'game/partial/form.html' %}
+            </div>
+        </div>
+    </div>
+</div>

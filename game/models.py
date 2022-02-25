@@ -23,6 +23,9 @@ class GameProject(models.Model):
     def get_detail_url(self):
         return reverse('game:detail', kwargs={'slug': self.slug})
 
+    def get_update_url(self):
+        return reverse('game:update', kwargs={'id': self.id})
+
 
 class GameDetail(models.Model):
     project = models.OneToOneField(GameProject, on_delete=models.CASCADE)

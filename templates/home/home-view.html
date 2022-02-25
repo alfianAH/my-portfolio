@@ -23,11 +23,6 @@
 <!-- About me -->
 <div class="row featurette" id="about-me">
     {% include 'home/partial/about.html' with about=about %}
-    <div>
-        <button class="btn btn-outline-success" 
-            hx-get='{{ about.get_hx_edit_url }}'
-            hx-target='#about-me'>Edit</button>
-    </div>
 </div>
 
 {% endblock content %}

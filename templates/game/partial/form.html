@@ -1,0 +1,15 @@
+<form action="." method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="row mb-3">
+            <label for="{{ field.id_for_label }}" class="col-sm-2 col-form-label">{{ field.label_tag }}</label>
+            <div class="col-sm-10">
+                {{ field }}
+            </div>
+        </div>
+    {% endfor %}
+    
+    <button type="button" class="btn btn-outline-success">Save</button>
+    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+</form>
