@@ -22,3 +22,6 @@ class About(models.Model):
     resume_url = models.CharField(max_length=200, validators=[validate_url])
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def get_hx_edit_url(self):
+        return reverse('home:hx-about-edit', kwargs={'id': self.id})

@@ -1,0 +1,15 @@
+<div class="col-md-7 order-md-2">
+    <h2 class="fw-bold">About me</h2>
+    <p class="lead">{{ about.description }}</p>
+    
+    {% if about.resume_url %}
+        <p class="lead">
+            <a href="{{ about.resume_url }}" class="btn btn-outline-light" download="">My Resume</a>
+            <small>Last updated: {{ about.updated.date }}</small>
+        </p>
+    {% endif %}
+</div>
+
+<div class="col-md-5 order-md-1">
+    <img src="{{ about.photo_url }}" alt="me" class="about-me">
+</div>

@@ -34,3 +34,9 @@ a.icon-block {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+#professional-summary > input, #professional-summary > textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #111;
+}
