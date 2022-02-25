@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from my_portfolio.utils import DRIVE_PHOTO_URL
 
@@ -7,9 +8,12 @@ from .validators import validate_url
 # Create your models here.
 class ProfessionalSummary(models.Model):
     title = models.CharField(max_length=50)
-    content = models.TextField()
+    content = models.TextField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def get_hx_edit_url(self):
+        return reverse('home:hx-professional-summary-edit', kwargs={'id': self.id})
 
 
 class About(models.Model):

@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Professional Summary -->
 <div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5 text-dark">
-        <h1 class="display-5 fw-bold">{{ professional_summary.title }}</h1>
-        <p class="col-md-8 fs-4">{{ professional_summary.content }}</p>
+    <div class="container-fluid py-5 text-dark" id="professional-summary">
+        {% include 'home/partial/professional-summary.html' with professional_summary=professional_summary%}
     </div>
+    {% if user.is_authenticated %}
+        <div>
+            <button class="btn btn-outline-success" 
+                hx-get='{{ professional_summary.get_hx_edit_url }}'
+                hx-target='#professional-summary'>Edit</button>
+        </div>
+    {% endif %}
 </div>
 
 <!-- Projects -->

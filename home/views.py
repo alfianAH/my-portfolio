@@ -1,7 +1,9 @@
-from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 
 from game.models import EducationalPurposedProject, MyProject
+from home.forms import ProfessionalSummaryForm
 
 from .models import (
     About,
@@ -37,4 +39,40 @@ def home_view(request):
         'about': about,
     }
 
-    return render(request, 'home-view.html', context=context)
+    return render(request, 'home/home-view.html', context=context)
+
+@login_required
+def professional_summary_update_hx_view(request, id=None):
+    if not request.htmx: raise Http404
+    
+    # Get the professional summary
+    if id is not None:
+        try:
+            obj = ProfessionalSummary.objects.get(id=id)
+        except:
+            obj = None
+
+    # Return not found if obj is none
+    if obj is None:
+        return HttpResponse('Professional summary is not found')
+
+    url = obj.get_hx_edit_url()
+    form = ProfessionalSummaryForm(request.POST or None, instance=obj)
+
+    context = {
+        'form': form,
+        'url': url,
+        'professional_summary': obj,
+    }
+
+    # When form is submitted, render home-view
+    if form.is_valid():
+        new_obj = form.save(commit=False)
+        new_obj.save()
+        print('save')
+        context['professional_summary'] = new_obj
+
+        return render(request, 'home/partial/professional-summary.html', context=context)
+
+    # Render form
+    return render(request, 'home/partial/form.html', context=context)
