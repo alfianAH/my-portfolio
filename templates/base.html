@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'home/carousel.css' %}">
     <link rel="stylesheet" href="{% static 'home/cover.css' %}">
 </head>
-<body class='bg-dark text-white'>
+<body class='bg-dark text-white' style='height: 100vh'>
     <div class="container py-4">
         <header class="pb-5 mb-4 border-bottom">
             <!-- Title -->
@@ -44,7 +44,7 @@
             {% endblock content %}
         </main>
 
-        <footer class="pt-3 mt-4 border-top" id="contact">
+        <footer class="pt-3 mt-4 border-top sticky-bottom" id="contact">
             <h3 class="fw-bold">Let's connect</h3>
             <!-- Gmail -->
             <a href="mailto:alfian.hamdani04@gmail.com" class="icon-block">

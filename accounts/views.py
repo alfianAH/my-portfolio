@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
@@ -18,7 +17,6 @@ def login_view(request):
 
 def logout_view(request):
     if request.htmx:
-        print(request.method)
         logout(request)
         headers = {
             'hx-redirect': '/'
