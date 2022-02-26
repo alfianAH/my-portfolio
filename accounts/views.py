@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -15,16 +15,22 @@ def login_view(request):
 
     return render(request, 'accounts/login.html', context=context)
 
-def logout_view(request):
-    if request.htmx:
-        logout(request)
-        headers = {
-            'hx-redirect': '/'
-        }
-        return HttpResponse("Success", headers=headers)
+def logout_hx_view(request):
+    # If user inputs '/hx/' (for HTMX) in url, give 404
+    if not request.htmx:
+        raise Http404
     
     if request.method == 'POST':
         logout(request)
-        return redirect('/login/')
+        success_url = '/accounts/login/'
+
+        if request.htmx:
+            headers = {
+                'hx-redirect': success_url
+            }
+
+            return HttpResponse("Success", headers=headers)
+
+        return redirect(success_url)
     
-    return render(request, 'accounts/logout.html')
+    return render(request, 'accounts/logout-modal.html')

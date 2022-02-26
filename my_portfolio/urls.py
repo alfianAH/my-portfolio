@@ -23,9 +23,8 @@ from home.views import (
 
 urlpatterns = [
     path('', home_view),
+    path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('game/', include('game.urls')),
     path('home/', include('home.urls')),
-    path('login/', login_view),
-    path('logout/', logout_view),
 ]

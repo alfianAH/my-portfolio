@@ -71,7 +71,7 @@
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-outline-success" 
                             data-bs-toggle="modal" data-bs-target="#update-{{ game.slug }}"
-                            hx-trigger='click' hx-target='#update-game-modal' hx-post='{{ game.get_update_url }}'>
+                            hx-trigger='click' hx-target='#update-game-modal' hx-get='{{ game.get_update_url }}'>
                             Update
                         </button>
                     </div>
