@@ -1,17 +1,19 @@
-<h2 class="text-white fw-bold">{{ project_title }}</h2>
+<div id="{{ target }}">
+    <h2 class="text-white fw-bold">{{ project_title }}</h2>
 
-<div class="album py-4">
-    <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="project">
-            {% for project in projects %}
-                {% include 'game/game-card.html' with game=project %}
-            {% endfor %}
+    <div class="album py-4">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="project">
+                {% for project in projects %}
+                    {% include 'game/game-card.html' with game=project %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+
+    {% for project in projects %}
+        {% include 'game/detail-modal.html' with game=project %}
+    {% endfor %}
+
+    <hr class="featurette-divider">
 </div>
-
-{% for project in projects %}
-    {% include 'game/detail-modal.html' with game=project %}
-{% endfor %}
-
-<hr class="featurette-divider">

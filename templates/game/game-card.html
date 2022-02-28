@@ -55,7 +55,7 @@
             <!-- Description -->
             <p class="card-text">{{ game.description }}</p>
             
-            <!-- Link play -->
+            <!-- Buttons -->
             <div class="d-flex align-items-center">
                 <div class="btn-group me-2">
                     <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modal_{{ game.slug }}">
@@ -64,19 +64,16 @@
                 </div>
 
                 <div class="btn-group me-2">
-                    <a href="{{ game.play_url }}" class="btn btn-outline-light">Play</a>
+                    <a href="{{ game.play_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light">Play</a>
                 </div>
                 
                 {% if user.is_authenticated %}
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-outline-success" 
-                            data-bs-toggle="modal" data-bs-target="#update-{{ game.slug }}"
                             hx-trigger='click' hx-target='#update-game-modal' hx-get='{{ game.get_update_url }}'>
                             Update
                         </button>
                     </div>
-
-                    <div id="update-game-modal"></div>
 
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-outline-danger">

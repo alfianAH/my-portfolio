@@ -97,7 +97,7 @@ def about_update_hx_view(request, id=None):
     context = {
         'form': form,
         'url': url,
-        'professional_summary': obj,
+        'about': obj,
     }
 
     # When form is submitted, render home-view

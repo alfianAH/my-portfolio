@@ -4,19 +4,18 @@
 <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5 text-dark" id="professional-summary">
         {% include 'home/partial/professional-summary.html' with professional_summary=professional_summary%}
-    
-
     </div>
 </div>
 
 <!-- Projects -->
+<div id="update-game-modal"></div>
 <div class="row align-items-md-stretch" id="projects">
     {% if my_projects %}
-        {% include 'game/project-template.html' with project_title='My Projects' projects=my_projects %}
+        {% include 'game/project-template.html' with project_title='My Projects' projects=my_projects target='my-projects' %}
     {% endif %}
 
     {% if edu_projects %}
-        {% include 'game/project-template.html' with project_title='Educational Purposed Projects' projects=edu_projects %}
+        {% include 'game/project-template.html' with project_title='Educational Purposed Projects' projects=edu_projects target='edu-projects' %}
     {% endif %}
 </div>
 
