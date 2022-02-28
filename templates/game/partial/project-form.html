@@ -10,6 +10,23 @@
         </div>
     {% endfor %}
     
+    <h2 class="fw-bold">Details</h2>
+    {% if game_detail_form %}
+        {% for field in game_detail_form %}
+            <div class="row mb-3">
+                <label for="{{ field.id_for_label }}" class="col-sm-2 col-form-label">{{ field.label_tag }}</label>
+                <div class="col-sm-10">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <h2 class="fw-bold">Carousels</h2>
+    {% if game_carousel_formset %}
+        {{ game_carousel_formset.as_p }}
+    {% endif %}
+
     <button type="submit" class="btn btn-outline-success" onclick="closeModal('update-game-modal')">Save</button>
     <button type="button" class="btn btn-outline-light" onclick="closeModal('update-game-modal')">Cancel</button>
 </form>

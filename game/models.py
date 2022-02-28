@@ -26,6 +26,12 @@ class GameProject(models.Model):
     def get_update_url(self):
         return reverse('game:update', kwargs={'id': self.id})
 
+    def get_game_detail(self):
+        return self.gamedetail
+    
+    def get_game_carousel_qs(self):
+        return self.gamecarousel_set.all()
+
 
 class GameDetail(models.Model):
     project = models.OneToOneField(GameProject, on_delete=models.CASCADE)
