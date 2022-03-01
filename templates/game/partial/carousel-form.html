@@ -1,0 +1,9 @@
+<form method="post" 
+    hx-post="{% if url %}{{ url }}{% else %}.{% endif %}" hx-swap="outerHTML">
+    {% csrf_token %}
+
+    {% include 'custom-form-field.html' with form=form %}
+
+    <button class="btn btn-outline-success mb-2" 
+        type="submit">Save</button>
+</form>

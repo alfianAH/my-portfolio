@@ -26,10 +26,13 @@ class GameProject(models.Model):
     def get_update_url(self):
         return reverse('game:update', kwargs={'id': self.id})
 
+    def get_create_carousel_url(self):
+        return reverse('game:hx-carousel-create', kwargs={'project_id': self.id})
+
     def get_game_detail(self):
         return self.gamedetail
     
-    def get_game_carousel_qs(self):
+    def get_game_carousel(self):
         return self.gamecarousel_set.all()
 
 
@@ -49,6 +52,12 @@ class GameDetail(models.Model):
 class GameCarousel(models.Model):
     project = models.ForeignKey(GameProject, on_delete=models.CASCADE)
     url = models.CharField(max_length=200, default=DRIVE_PHOTO_URL, validators=[validate_url])
+
+    def get_update_carousel_url(self):
+        return reverse('game:hx-carousel-update', kwargs={
+            'project_id': self.project.id, 
+            'id': self.id,
+        })
 
 
 class MyProject(GameProject):
