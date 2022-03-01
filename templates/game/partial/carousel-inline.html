@@ -1,7 +1,12 @@
-<div class="mb-2" id="carousel-{{ object.id }}">
+<div class="mb-2" id="carousel-{{ object.id }}" 
+    data-bs-toggle="tooltip" data-bs-placement="top" title="Double click to edit">
     <div class="row mb-3">
         <label class="col-sm-2">URL:</label>
-        <div class="col-sm-10" ondblclick = "makeDoubleClick()">
+        <div class="col-sm-10" 
+            hx-trigger="dblclick"
+            hx-get="{{ object.get_update_carousel_url }}"
+            hx-target="#carousel-{{ object.id }}"
+            hx-swap="innerHTML">
             {{ object.url }}
         </div>
     </div>

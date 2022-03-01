@@ -22,3 +22,4 @@ class GameCarouselForm(forms.ModelForm):
     class Meta: 
         model = GameCarousel
         fields = ['url']
+        labels = {'url': 'URL'}

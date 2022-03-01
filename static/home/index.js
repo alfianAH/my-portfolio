@@ -11,7 +11,3 @@ function closeModal(modalContainer) {
 		container.removeChild(modal)
 	}, 200)
 }
-
-function makeDoubleClick() {
-    console.log('double');
-}

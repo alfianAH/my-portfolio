@@ -1,5 +1,6 @@
 <form method="post" 
-    hx-post="{% if url %}{{ url }}{% else %}.{% endif %}" hx-swap="outerHTML">
+    hx-post="{% if url %}{{ url }}{% else %}.{% endif %}"
+    hx-target="#carousel-{{ object.id }}" hx-swap="outerHTML">
     {% csrf_token %}
 
     {% include 'custom-form-field.html' with form=form %}
