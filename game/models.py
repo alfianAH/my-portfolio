@@ -53,6 +53,12 @@ class GameCarousel(models.Model):
     project = models.ForeignKey(GameProject, on_delete=models.CASCADE)
     url = models.CharField(max_length=200, default=DRIVE_PHOTO_URL, validators=[validate_url])
 
+    def get_read_carousel_url(self):
+        return reverse('game:hx-carousel-read', kwargs={
+            'project_id': self.project.id, 
+            'id': self.id,
+        })
+    
     def get_update_carousel_url(self):
         return reverse('game:hx-carousel-update', kwargs={
             'project_id': self.project.id, 

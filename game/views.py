@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.http import Http404, HttpResponse
@@ -68,6 +69,29 @@ def game_project_update_view(request, id=None):
         
     return render(request, 'game/create-update.html', context=context)
 
+def game_carousel_inline_view(request, project_id=None, id=None):
+    # If user inputs '/hx/' (for HTMX) in url, give 404
+    if not request.htmx:
+        raise Http404
+    
+    # Get project object
+    project_obj = get_object_or_404(GameProject, id=project_id)
+    
+    # Get carousel id if not None (case: Update carousel)
+    carousel_obj = None
+    if id is not None:
+        try:
+            carousel_obj = GameCarousel.objects.get(id=id)
+        except:
+            carousel_obj = None
+    
+    context = {
+        'object': carousel_obj,
+    }
+
+    return render(request, 'game/partial/carousel-inline.html', context=context)
+
+@login_required
 def game_carousel_form_hx_view(request, project_id=None, id=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
