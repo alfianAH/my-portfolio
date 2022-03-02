@@ -35,9 +35,9 @@
         {% endif %}
     </div>
 
-    {% for carousel in game.get_game_carousel %}
-        {% include 'game/partial/carousel-inline.html' with object=carousel %}
-    {% endfor %}
+    <div id="carousel-list">
+        {% include 'game/partial/carousel-list.html' with objects=game.get_game_carousel %}
+    </div>
     <div id="carousel-create"></div>
 
     <button type="submit" class="btn btn-outline-success" onclick="closeModal('update-game-modal')">Save</button>

@@ -1,13 +1,22 @@
-<form method="post" 
-    hx-post="{% if url %}{{ url }}{% else %}.{% endif %}"
-    hx-target="#carousel-{{ object.id }}" hx-swap="outerHTML">
-    {% csrf_token %}
+<div id="carousel-form">
+    <form method="post" 
+        hx-post="{% if url %}{{ url }}{% else %}.{% endif %}"
+        hx-target="#{% if object.id %}carousel-{{ object.id }}{% else %}carousel-form{% endif %}"
+        hx-swap="outerHTML">
+        {% csrf_token %}
 
-    {% include 'custom-form-field.html' with form=form %}
+        {% include 'custom-form-field.html' with form=form %}
 
-    <button class="btn btn-outline-success mb-2" 
-        type="submit">Save</button>
-    <button class="btn btn-outline-light mb-2" 
-        type="button"
-        hx-get="{{ object.get_read_carousel_url }}">Cancel</button>
-</form>
+        <button class="btn btn-outline-success mb-2" 
+            type="submit">Save</button>
+        
+        {% if object.id %}
+            <button class="btn btn-outline-danger mb-2" type="button"
+                hx-delete="{{ object.get_delete_carousel_url }}"
+                hx-confirm="Are you sure to delete this URL?"
+                hx-target="closest div" hx-swap="outerHTML swap:1s">Delete</button>
+            <button class="btn btn-outline-light mb-2" type="button"
+                hx-get="{{ object.get_read_carousel_url }}">Cancel</button>
+        {% endif %}
+    </form>
+</div>

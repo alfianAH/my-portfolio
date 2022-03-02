@@ -3,6 +3,7 @@ from django.urls import path
 from game.views import (
     game_project_update_view,
     game_carousel_inline_view,
+    game_carousel_delete_hx_view,
     game_carousel_form_hx_view,
 )
 
@@ -16,7 +17,7 @@ urlpatterns = [
     # Update
     path('hx/<int:project_id>/carousel/<int:id>/update/', game_carousel_form_hx_view, name='hx-carousel-update'),
     # Delete
-    # path('hx/<int:project_id>/carousel/<int:id>/delete', game_carousel_delete_view, name='hx-carousel-delete'),
+    path('hx/<int:project_id>/carousel/<int:id>/delete/', game_carousel_delete_hx_view, name='hx-carousel-delete'),
 
     # Project
     # Update

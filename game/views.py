@@ -1,10 +1,14 @@
-from multiprocessing import context
 from django.contrib.auth.decorators import login_required
-from django.forms import modelformset_factory
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .forms import GameCarouselForm, GameDetailForm, GameProjectForm
-from .models import EducationalPurposedProject, GameCarousel, GameDetail, GameProject, MyProject
+from .models import (
+    EducationalPurposedProject, 
+    GameCarousel, 
+    GameDetail, 
+    GameProject, 
+    MyProject
+)
 
 # Create your views here.
 @login_required
@@ -74,16 +78,8 @@ def game_carousel_inline_view(request, project_id=None, id=None):
     if not request.htmx:
         raise Http404
     
-    # Get project object
-    project_obj = get_object_or_404(GameProject, id=project_id)
-    
-    # Get carousel id if not None (case: Update carousel)
-    carousel_obj = None
-    if id is not None:
-        try:
-            carousel_obj = GameCarousel.objects.get(id=id)
-        except:
-            carousel_obj = None
+    # Get carousel object
+    carousel_obj = get_object_or_404(GameCarousel, project__id=project_id, id=id)
     
     context = {
         'object': carousel_obj,
@@ -144,3 +140,16 @@ def game_carousel_form_hx_view(request, project_id=None, id=None):
     
     # Render form
     return render(request, 'game/partial/carousel-form.html', context=context)
+
+@login_required
+def game_carousel_delete_hx_view(request, project_id=None, id=None):
+    # If user inputs '/hx/' (for HTMX) in url, give 404
+    if not request.htmx:
+        raise Http404
+    
+    carousel_obj = get_object_or_404(GameCarousel, project__id=project_id, id=id)
+
+    if request.htmx:
+        carousel_obj.delete()
+
+        return render(request, 'game/partial/carousel-delete-inline-response.html')
