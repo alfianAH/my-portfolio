@@ -12,12 +12,31 @@ from .models import (
 
 # Create your views here.
 @login_required
-def game_project_update_view(request, id=None):
+def game_project_delete_view(request, slug=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
         raise Http404
     
-    obj = get_object_or_404(GameProject, id=id)
+    obj = get_object_or_404(GameProject, slug=slug)
+    obj_title = obj.title
+    obj_slug = obj.slug
+    print('get')
+    if request.htmx:
+        print('delete')
+        # obj.delete()
+        context = {
+            'id': 'toast-{}'.format(obj_slug),
+            'content': 'Game "{}" deleted'.format(obj_title)
+        }
+        return render(request, 'components/toast-template.html', context=context)
+
+@login_required
+def game_project_update_view(request, slug=None):
+    # If user inputs '/hx/' (for HTMX) in url, give 404
+    if not request.htmx:
+        raise Http404
+    
+    obj = get_object_or_404(GameProject, slug=slug)
     form = GameProjectForm(request.POST or None, instance=obj)
     url = obj.get_update_url()
 
@@ -73,13 +92,13 @@ def game_project_update_view(request, id=None):
         
     return render(request, 'game/create-update.html', context=context)
 
-def game_carousel_inline_view(request, project_id=None, id=None):
+def game_carousel_inline_view(request, slug=None, id=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
         raise Http404
     
     # Get carousel object
-    carousel_obj = get_object_or_404(GameCarousel, project__id=project_id, id=id)
+    carousel_obj = get_object_or_404(GameCarousel, project__slug=slug, id=id)
     
     context = {
         'object': carousel_obj,
@@ -88,14 +107,14 @@ def game_carousel_inline_view(request, project_id=None, id=None):
     return render(request, 'game/partial/carousel-inline.html', context=context)
 
 @login_required
-def game_carousel_form_hx_view(request, project_id=None, id=None):
+def game_carousel_form_hx_view(request, slug=None, id=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
         raise Http404
 
     # Get project object
     try:
-        project_obj = GameProject.objects.get(id=project_id)
+        project_obj = GameProject.objects.get(slug=slug)
     except:
         project_obj = None
 
@@ -142,12 +161,12 @@ def game_carousel_form_hx_view(request, project_id=None, id=None):
     return render(request, 'game/partial/carousel-form.html', context=context)
 
 @login_required
-def game_carousel_delete_hx_view(request, project_id=None, id=None):
+def game_carousel_delete_hx_view(request, slug=None, id=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
         raise Http404
     
-    carousel_obj = get_object_or_404(GameCarousel, project__id=project_id, id=id)
+    carousel_obj = get_object_or_404(GameCarousel, project__slug=slug, id=id)
 
     if request.htmx:
         carousel_obj.delete()

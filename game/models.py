@@ -6,6 +6,9 @@ from .utils import slugify_instance_title
 from home.validators import validate_url
 from my_portfolio.utils import DRIVE_PHOTO_URL
 
+import requests
+
+
 # Create your models here.
 class GameStatus(models.TextChoices):
     ON_GOING = 'o', 'On Going'
@@ -20,14 +23,17 @@ class GameProject(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def get_delete_url(self):
+        return reverse('game:delete', kwargs={'slug': self.slug})
+    
     def get_detail_url(self):
         return reverse('game:detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        return reverse('game:update', kwargs={'id': self.id})
+        return reverse('game:update', kwargs={'slug': self.slug})
 
     def get_create_carousel_url(self):
-        return reverse('game:hx-carousel-create', kwargs={'project_id': self.id})
+        return reverse('game:hx-carousel-create', kwargs={'slug': self.slug})
 
     def get_game_detail(self):
         return self.gamedetail
@@ -55,19 +61,19 @@ class GameCarousel(models.Model):
 
     def get_delete_carousel_url(self):
         return reverse('game:hx-carousel-delete', kwargs={
-            'project_id': self.project.id, 
+            'slug': self.project.slug, 
             'id': self.id,
         })
     
     def get_read_carousel_url(self):
         return reverse('game:hx-carousel-read', kwargs={
-            'project_id': self.project.id, 
+            'slug': self.project.slug, 
             'id': self.id,
         })
     
     def get_update_carousel_url(self):
         return reverse('game:hx-carousel-update', kwargs={
-            'project_id': self.project.id, 
+            'slug': self.project.slug, 
             'id': self.id,
         })
 

@@ -2,52 +2,7 @@
     <div class="card shadow-sm">
         
         {% comment %} Carousel {% endcomment %}
-        <div id="{% if game.slug %}{{ game.slug }}{% endif %}" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                {% for carousel in game.gamecarousel_set.all %}
-                    {% if forloop.first %}
-                        <button type="button" data-bs-target="#{{ game.slug }}" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
-                    {% else %}
-                        <button type="button" data-bs-target="#{{ game.slug }}" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter0 }}"></button>
-                    {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="carousel-inner">
-                {% for carousel in game.gamecarousel_set.all %}
-                    {% if forloop.first %}
-                        <div class="carousel-item active">
-                            <svg class="bd-placeholder-img" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img-blur">
-                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img">
-                            </svg>
-                        </div>
-                    {% else %}
-                        <div class="carousel-item">
-                            <svg class="bd-placeholder-img" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img-blur">
-                                <img src="{{ carousel.url }}" alt="{{ game.title }}" class="project-img">
-                            </svg>
-                        </div>
-                    {% endif %}
-                    
-                {% endfor %}
-            </div>
-            
-            {% if game.gamecarousel_set.all %}
-                <button class="carousel-control-prev" type="button" data-bs-target="#{{ game.slug }}" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                
-                <button class="carousel-control-next" type="button" data-bs-target="#{{ game.slug }}" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            {% endif %}
-        </div>
+        {% include 'game/carousel-template.html' with carousel_id=''%}
         
         <div class="card-body bg-dark text-white">
             <h3 class="fw-bold">{{ game.title }}</h3>
@@ -70,13 +25,21 @@
                 {% if user.is_authenticated %}
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-outline-success" 
-                            hx-trigger='click' hx-target='#update-game-modal' hx-get='{{ game.get_update_url }}'>
+                            hx-get='{{ game.get_update_url }}'
+                            hx-target='#update-game-modal' 
+                            hx-trigger='click'
+                            _="on htmx:afterOnLoad wait 10ms then add .show to #edit-modal then add .show to #edit-modal-backdrop">
                             Update
                         </button>
                     </div>
 
                     <div class="btn-group me-2">
-                        <button type="button" class="btn btn-outline-danger">
+                        <button type="button" class="btn btn-outline-danger" id="delete-{{ game.slug }}"
+                            hx-confirm="Are you sure want to delete {{ game.title }}?"
+                            hx-get="{{ game.get_delete_url }}"
+                            hx-target="#toast-container"
+                            hx-swap="afterbegin"
+                            _ ="on htmx:afterOnLoad wait 100ms then js showToast('toast-{{ game.slug }}') end">
                             Delete
                         </button>
                     </div>
