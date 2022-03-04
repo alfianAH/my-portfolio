@@ -1,5 +1,21 @@
 <div id="{{ target }}">
-    <h2 class="text-white fw-bold">{{ project_title }}</h2>
+    <div class="row">
+        <div class='col-md-auto'>
+            <h2 class="text-white fw-bold">{{ project_title }}</h2>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div class='col-md-auto'>
+                <form method="post">
+                    <input type="hidden" value="{{ target }}" name="project-type">
+                    <button type="submit" class="btn btn-outline-light"
+                        hx-post="{% url 'game:create' project_type=target %}" 
+                        hx-target='#create-update-game-modal'
+                        hx-trigger='click'
+                        _="on htmx:afterOnLoad wait 10ms then add .show to #create-edit-modal then add .show to #create-edit-modal-backdrop">Add game</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
 
     <div class="album py-4">
         <div class="container">

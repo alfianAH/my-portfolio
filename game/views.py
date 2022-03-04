@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
-from .forms import GameCarouselForm, GameDetailForm, GameProjectForm
+from django.urls import reverse
+from .forms import EducationalPurposedProjectForm, GameCarouselForm, GameDetailForm, GameProjectForm, MyProjectForm
 from .models import (
     EducationalPurposedProject, 
     GameCarousel, 
@@ -12,6 +13,62 @@ from .models import (
 
 # Create your views here.
 @login_required
+def game_project_create_view(request, project_type=None):
+    if not request.htmx or project_type is None:
+        raise Http404
+
+    ObjKlass = None
+    form = None
+    game_detail_form = GameDetailForm(request.POST or None)
+    url = reverse('game:create', kwargs={'project_type': project_type})
+
+    context = {
+        'game_detail_form': game_detail_form,
+        'url': url,
+    }
+
+    # Check project type
+    match(project_type):
+        case MyProject.TAG:
+            ObjKlass = MyProject
+            form = MyProjectForm(request.POST or None)
+
+            context.update({
+                'form': form,
+                'target': MyProject.TAG,
+                'project_title': 'My Projects',
+            })
+        case EducationalPurposedProject.TAG:
+            ObjKlass = EducationalPurposedProject
+            form = EducationalPurposedProjectForm(request.POST or None)
+
+            context.update({
+                'form': form,
+                'target': EducationalPurposedProject.TAG,
+                'project_title': 'Educational Purposed Projects',
+            })
+    
+    if all([
+        form.is_valid(),
+        game_detail_form.is_valid(),
+    ]):
+        new_obj = form.save(commit=False)
+        new_obj.save()
+
+        # Game detail forms
+        game_detail = game_detail_form.save(commit=False)
+        game_detail.project = new_obj
+        game_detail.save()
+
+        # Render all games
+        projects = ObjKlass.objects.all()
+        context ['projects'] = projects
+        return render(request, 'game/project-template.html', context=context)
+
+    # Render form
+    return render(request, 'game/create-update.html', context=context)
+
+@login_required
 def game_project_delete_view(request, slug=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
@@ -20,9 +77,8 @@ def game_project_delete_view(request, slug=None):
     obj = get_object_or_404(GameProject, slug=slug)
     obj_title = obj.title
     obj_slug = obj.slug
-    print('get')
-    if request.htmx:
-        print('delete')
+    
+    if request.htmx:    
         # obj.delete()
         context = {
             'id': 'toast-{}'.format(obj_slug),
@@ -66,11 +122,15 @@ def game_project_update_view(request, slug=None):
     
     # Validate game project's class
     if ObjKlass is MyProject:
-        context['target'] = 'my-projects'
-        context['project_title'] = 'My Projects'
+        context.update({
+            'target': MyProject.TAG,
+            'project_title': 'My Projects',
+        })
     elif ObjKlass is EducationalPurposedProject:
-        context['target'] = 'edu-projects'
-        context['project_title'] = 'Educational Purposed Projects'
+        context.update({
+            'target': EducationalPurposedProject.TAG,
+            'project_title': 'Educational Purposed Projects',
+        })
 
     # Save form if it is valid  
     if all([
@@ -92,13 +152,14 @@ def game_project_update_view(request, slug=None):
         
     return render(request, 'game/create-update.html', context=context)
 
-def game_carousel_inline_view(request, slug=None, id=None):
+@login_required
+def game_carousel_inline_view(request, id=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
         raise Http404
     
     # Get carousel object
-    carousel_obj = get_object_or_404(GameCarousel, project__slug=slug, id=id)
+    carousel_obj = get_object_or_404(GameCarousel, id=id)
     
     context = {
         'object': carousel_obj,
@@ -117,10 +178,6 @@ def game_carousel_form_hx_view(request, slug=None, id=None):
         project_obj = GameProject.objects.get(slug=slug)
     except:
         project_obj = None
-
-    # If there are no objects, return not found
-    if project_obj is None:
-        return HttpResponse('Game project not found')
     
     # Get carousel id if not None (case: Update carousel)
     carousel_obj = None
@@ -161,12 +218,12 @@ def game_carousel_form_hx_view(request, slug=None, id=None):
     return render(request, 'game/partial/carousel-form.html', context=context)
 
 @login_required
-def game_carousel_delete_hx_view(request, slug=None, id=None):
+def game_carousel_delete_hx_view(request, id=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
     if not request.htmx:
         raise Http404
     
-    carousel_obj = get_object_or_404(GameCarousel, project__slug=slug, id=id)
+    carousel_obj = get_object_or_404(GameCarousel, id=id)
 
     if request.htmx:
         carousel_obj.delete()

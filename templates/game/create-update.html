@@ -1,5 +1,5 @@
-<div id="edit-modal-backdrop" class="modal-backdrop fade" style="display:block;"></div>
-<div id="edit-modal" 
+<div id="create-edit-modal-backdrop" class="modal-backdrop fade" style="display:block;"></div>
+<div id="create-edit-modal" 
     class="modal fade" style="display:block;" tabindex="-1" 
     aria-labelledby="{% if game.id %}update-{{ game.slug }}{% else %}create-project{% endif %}Label" 
     aria-hidden="true">
@@ -11,7 +11,7 @@
                 <h1 class="modal-title fw-bold">
                     {% if game.id %}{{ game.title }}{% else %}Create game{% endif %}
                 </h1>
-                <button type="button" class="btn-close btn-close-white" onclick="closeModal('update-game-modal')" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" onclick="closeModal('create-update-game-modal')" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">

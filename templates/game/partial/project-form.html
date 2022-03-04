@@ -23,23 +23,29 @@
     {% endif %}
     
     <div class="row">
-        <div class="col-md-auto">
-            <h2 class="fw-bold">Carousels</h2>
-        </div>
-
         {% if game_carousel_create_url %}
             <div class="col-md-auto">
-                <button class="btn btn-outline-light" hx-get="{{ game_carousel_create_url }}"
-                    hx-trigger="click" hx-target="#carousel-create" hx-swap='beforeend'>Add carousel</button>
+                <h2 class="fw-bold">Carousels</h2>
             </div>
+        
+            <div class="col-md-auto">
+                <button class="btn btn-outline-light" hx-get="{{ game_carousel_create_url }}"
+                    hx-trigger="click" 
+                    hx-target="#carousel-create" 
+                    hx-swap='beforeend'>Add carousel</button>
+            </div>
+        {% else %}
+            <p>You can add carousels after saving the project</p>
         {% endif %}
     </div>
 
-    <div id="carousel-list">
-        {% include 'game/partial/carousel-list.html' with objects=game.get_game_carousel %}
-    </div>
-    <div id="carousel-create"></div>
+    {% if game_carousel_create_url %}
+        <div id="carousel-list">
+            {% include 'game/partial/carousel-list.html' with objects=game.get_game_carousel %}
+        </div>
+        <div id="carousel-create"></div>
+    {% endif %}
 
-    <button type="submit" class="btn btn-outline-success" onclick="closeModal('update-game-modal')">Save</button>
-    <button type="button" class="btn btn-outline-light" onclick="closeModal('update-game-modal')">Cancel</button>
+    <button type="submit" class="btn btn-outline-success" onclick="closeModal('create-update-game-modal')">Save</button>
+    <button type="button" class="btn btn-outline-light" onclick="closeModal('create-update-game-modal')">Cancel</button>
 </form>

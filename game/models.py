@@ -23,14 +23,17 @@ class GameProject(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def get_delete_url(self):
-        return reverse('game:delete', kwargs={'slug': self.slug})
+    def get_create_url(self):
+        return reverse('game:create', kwargs={'project_type': None})
     
     def get_detail_url(self):
         return reverse('game:detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
         return reverse('game:update', kwargs={'slug': self.slug})
+
+    def get_delete_url(self):
+        return reverse('game:delete', kwargs={'slug': self.slug})
 
     def get_create_carousel_url(self):
         return reverse('game:hx-carousel-create', kwargs={'slug': self.slug})
@@ -59,30 +62,29 @@ class GameCarousel(models.Model):
     project = models.ForeignKey(GameProject, on_delete=models.CASCADE)
     url = models.CharField(max_length=200, default=DRIVE_PHOTO_URL, validators=[validate_url])
 
-    def get_delete_carousel_url(self):
-        return reverse('game:hx-carousel-delete', kwargs={
-            'slug': self.project.slug, 
-            'id': self.id,
-        })
+    def get_create_carousel_url(self):
+        return reverse('game:hx-carousel-create', kwargs={'slug': self.project.slug})
     
     def get_read_carousel_url(self):
-        return reverse('game:hx-carousel-read', kwargs={
-            'slug': self.project.slug, 
-            'id': self.id,
-        })
+        return reverse('game:hx-carousel-read', kwargs={'id': self.id,})
     
     def get_update_carousel_url(self):
         return reverse('game:hx-carousel-update', kwargs={
-            'slug': self.project.slug, 
-            'id': self.id,
+            'slug': self.project.slug,
+            'id': self.id, 
         })
+
+    def get_delete_carousel_url(self):
+        return reverse('game:hx-carousel-delete', kwargs={'id': self.id})
 
 
 class MyProject(GameProject):
+    TAG = 'my-projects'
     pass
 
 
 class EducationalPurposedProject(GameProject):
+    TAG = 'edu-projects'
     pass
 
 

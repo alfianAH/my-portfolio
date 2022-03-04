@@ -1,14 +1,28 @@
 from django import forms
 from .models import (
+    EducationalPurposedProject,
     GameProject,
     GameCarousel,
-    GameDetail
+    GameDetail,
+    MyProject
 )
 
 
 class GameProjectForm(forms.ModelForm):
     class Meta:
         model = GameProject
+        fields = ['title', 'description', 'play_url']
+
+
+class MyProjectForm(forms.ModelForm):
+    class Meta:
+        model = MyProject
+        fields = ['title', 'description', 'play_url']
+
+
+class EducationalPurposedProjectForm(forms.ModelForm):
+    class Meta:
+        model = EducationalPurposedProject
         fields = ['title', 'description', 'play_url']
 
 

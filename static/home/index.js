@@ -18,13 +18,11 @@ function closeToast(toastId, toastContainerId='toast-container') {
 	var toast = new bootstrap.Toast(toastLive);
 
 	toast.hide(); // Hide the toast
-	console.log("Before:" + container.childElementCount);
 
 	// Remove the toast from container
 	if(container.childElementCount > 0){
 		setTimeout(function () {
 			container.removeChild(toastLive);
-			console.log("After:" + container.childElementCount);
 		}, 200);
 	}
 }

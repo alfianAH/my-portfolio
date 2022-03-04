@@ -26,9 +26,9 @@
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-outline-success" 
                             hx-get='{{ game.get_update_url }}'
-                            hx-target='#update-game-modal' 
+                            hx-target='#create-update-game-modal' 
                             hx-trigger='click'
-                            _="on htmx:afterOnLoad wait 10ms then add .show to #edit-modal then add .show to #edit-modal-backdrop">
+                            _="on htmx:afterOnLoad wait 10ms then add .show to #create-edit-modal then add .show to #create-edit-modal-backdrop">
                             Update
                         </button>
                     </div>
