@@ -1,9 +1,11 @@
-<div class="modal fade" id="modal_{{ game.slug }}" tabindex="-1" aria-labelledby="{{ game.slug }}Label" aria-hidden="true">
+<div id="game-detail-modal-backdrop" class="modal-backdrop fade" style="display:block;"></div>
+<div id="game-detail-modal" class="modal fade" tabindex="-1" aria-labelledby="{{ game.slug }}Label" aria-hidden="true" style="display:block;">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content bg-dark">
             <div class="modal-header">
                 <h1 class="fw-bold">{{ game.title }}</h1>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" aria-label="Close"
+                    onclick="closeModal('detail-game-modal')" ></button>
             </div>
             
             <div class="modal-body">
@@ -39,7 +41,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-light" 
+                    onclick="closeModal('detail-game-modal')">Close</button>
             </div>
         </div>
     </div>

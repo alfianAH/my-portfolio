@@ -26,8 +26,8 @@ class GameProject(models.Model):
     def get_create_url(self):
         return reverse('game:create', kwargs={'project_type': None})
     
-    def get_detail_url(self):
-        return reverse('game:detail', kwargs={'slug': self.slug})
+    def get_read_url(self):
+        return reverse('game:read', kwargs={'slug': self.slug})
 
     def get_update_url(self):
         return reverse('game:update', kwargs={'slug': self.slug})

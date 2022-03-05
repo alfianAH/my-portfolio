@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -67,6 +68,19 @@ def game_project_create_view(request, project_type=None):
     # Render form
     return render(request, 'game/create-update.html', context=context)
 
+def game_project_read_view(request, slug=None):
+    # If user inputs '/hx/' (for HTMX) in url, give 404
+    if not request.htmx:
+        raise Http404
+
+    obj = get_object_or_404(GameProject, slug=slug)
+
+    context = {
+        'game': obj,
+    }
+
+    return render(request, 'game/detail-modal.html', context=context)
+
 @login_required
 def game_project_delete_view(request, slug=None):
     # If user inputs '/hx/' (for HTMX) in url, give 404
@@ -78,7 +92,7 @@ def game_project_delete_view(request, slug=None):
     obj_slug = obj.slug
     
     if request.htmx:    
-        # obj.delete()
+        obj.delete()
         context = {
             'id': 'toast-{}'.format(obj_slug),
             'content': 'Game "{}" deleted'.format(obj_title)

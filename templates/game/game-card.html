@@ -13,7 +13,11 @@
             <!-- Buttons -->
             <div class="d-flex align-items-center">
                 <div class="btn-group me-2">
-                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modal_{{ game.slug }}">
+                    <button type="button" class="btn btn-outline-info" 
+                        hx-get='{{ game.get_read_url }}'
+                        hx-target='#detail-game-modal' 
+                        hx-trigger='click'
+                        _="on htmx:afterOnLoad wait 10ms then add .show to #game-detail-modal then add .show to #game-detail-modal-backdrop">
                         Details
                     </button>
                 </div>
