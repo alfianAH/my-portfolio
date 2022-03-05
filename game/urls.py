@@ -15,11 +15,11 @@ urlpatterns = [
     # Create
     path('hx/<slug:slug>/carousel/create/', game_carousel_form_hx_view, name='hx-carousel-create'),
     # Read
-    path('hx/carousel/<int:id>/', game_carousel_inline_view, name='hx-carousel-read'),
+    path('hx/<slug:slug>/carousel/<int:id>/', game_carousel_inline_view, name='hx-carousel-read'),
     # Update
     path('hx/<slug:slug>/carousel/<int:id>/update/', game_carousel_form_hx_view, name='hx-carousel-update'),
     # Delete
-    path('hx/carousel/<int:id>/delete/', game_carousel_delete_hx_view, name='hx-carousel-delete'),
+    path('hx/<slug:slug>/carousel/<int:id>/delete/', game_carousel_delete_hx_view, name='hx-carousel-delete'),
 
     # Project
     # Create

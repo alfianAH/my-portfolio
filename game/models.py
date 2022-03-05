@@ -66,7 +66,10 @@ class GameCarousel(models.Model):
         return reverse('game:hx-carousel-create', kwargs={'slug': self.project.slug})
     
     def get_read_carousel_url(self):
-        return reverse('game:hx-carousel-read', kwargs={'id': self.id,})
+        return reverse('game:hx-carousel-read', kwargs={
+            'slug': self.project.slug,
+            'id': self.id,
+        })
     
     def get_update_carousel_url(self):
         return reverse('game:hx-carousel-update', kwargs={
@@ -75,7 +78,10 @@ class GameCarousel(models.Model):
         })
 
     def get_delete_carousel_url(self):
-        return reverse('game:hx-carousel-delete', kwargs={'id': self.id})
+        return reverse('game:hx-carousel-delete', kwargs={
+            'slug': self.project.slug,
+            'id': self.id
+        })
 
 
 class MyProject(GameProject):

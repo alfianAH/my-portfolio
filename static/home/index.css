@@ -59,3 +59,9 @@ a.icon-block {
   opacity: 0;
   transition: opacity 1s ease-out;
 }
+
+div.htmx-swapping {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+  
