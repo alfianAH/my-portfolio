@@ -15,6 +15,9 @@ class ProfessionalSummary(models.Model):
     def get_hx_edit_url(self):
         return reverse('home:hx-professional-summary-edit', kwargs={'id': self.id})
 
+    def get_hx_read_url(self):
+        return reverse('home:hx-professional-summary-read', kwargs={'id': self.id})
+
 
 class About(models.Model):
     description = models.TextField()
@@ -25,3 +28,6 @@ class About(models.Model):
 
     def get_hx_edit_url(self):
         return reverse('home:hx-about-edit', kwargs={'id': self.id})
+    
+    def get_hx_read_url(self):
+        return reverse('home:hx-about-read', kwargs={'id': self.id})

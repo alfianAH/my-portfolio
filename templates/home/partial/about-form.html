@@ -1,6 +1,5 @@
-<h2 class="fw-bold">About me</h2>
-
 <form action="." method="post" hx-post='{% if url %}{{ url }}{% else %} . {% endif %}' hx-swap='outerHTML'>
+    <h2 class="fw-bold">About me</h2>
     {% csrf_token %}
 
     {% for field in form %}
@@ -12,5 +11,8 @@
     {% endfor %}
 
     <button class="btn btn-outline-success" type="submit">Save</button>
-    <a class="btn btn-outline-light" href='/'>Cancel</a>
+    <button class="btn btn-outline-light" type="button"
+        hx-get="{{ object.get_hx_read_url }}"
+        hx-target="#about-me"
+        hx-swap="innerHTML">Cancel</button>
 </form>

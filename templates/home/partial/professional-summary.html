@@ -1,11 +1,11 @@
 <!-- Professional Summary -->
-<h1 class="display-5 fw-bold">{{ professional_summary.title }}</h1>
-<p class="col-md-8 fs-4">{{ professional_summary.content }}</p>
+<h1 class="display-5 fw-bold">{{ object.title }}</h1>
+<p class="col-md-8 fs-4">{{ object.content }}</p>
 
 {% if user.is_authenticated %}
     <div>
         <button class="btn btn-outline-success" 
-            hx-get='{{ professional_summary.get_hx_edit_url }}'
+            hx-get='{{ object.get_hx_edit_url }}'
             hx-target='#professional-summary'>Edit</button>
     </div>
 {% endif %}

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from game.models import EducationalPurposedProject, MyProject
 from home.forms import AboutForm, ProfessionalSummaryForm
@@ -41,20 +41,22 @@ def home_view(request):
 
     return render(request, 'home/home-view.html', context=context)
 
+def professional_summary_read_hx_view(request, id=None):
+    if not request.htmx: raise Http404
+
+    obj = get_object_or_404(ProfessionalSummary, id=id)
+    context = {
+        'object': obj,
+    }
+
+    return render(request, 'home/partial/professional-summary.html', context=context)
+
 @login_required
 def professional_summary_update_hx_view(request, id=None):
     if not request.htmx: raise Http404
     
     # Get the professional summary
-    if id is not None:
-        try:
-            obj = ProfessionalSummary.objects.get(id=id)
-        except:
-            obj = None
-
-    # Return not found if obj is none
-    if obj is None:
-        return HttpResponse('Professional summary is not found')
+    obj = get_object_or_404(ProfessionalSummary, id=id)
 
     url = obj.get_hx_edit_url()
     form = ProfessionalSummaryForm(request.POST or None, instance=obj)
@@ -62,34 +64,35 @@ def professional_summary_update_hx_view(request, id=None):
     context = {
         'form': form,
         'url': url,
-        'professional_summary': obj,
+        'object': obj,
     }
 
     # When form is submitted, render home-view
     if form.is_valid():
         new_obj = form.save(commit=False)
         new_obj.save()
-        context['professional_summary'] = new_obj
+        context['object'] = new_obj
 
         return render(request, 'home/partial/professional-summary.html', context=context)
 
     # Render form
-    return render(request, 'home/partial/normal-form.html', context=context)
+    return render(request, 'home/partial/professional-summary-form.html', context=context)
+
+def about_read_view(request, id=None):
+    if not request.htmx: raise Http404
+
+    obj = get_object_or_404(About, id=id)
+    context = {
+        'object': obj
+    }
+    return render(request, 'home/partial/about.html', context=context)
 
 @login_required
 def about_update_hx_view(request, id=None):
     if not request.htmx: raise Http404
     
-    # Get the professional summary
-    if id is not None:
-        try:
-            obj = About.objects.get(id=id)
-        except:
-            obj = None
-
-    # Return not found if obj is none
-    if obj is None:
-        return HttpResponse('About is not found')
+    # Get the about
+    obj = get_object_or_404(About, id=id)
 
     url = obj.get_hx_edit_url()
     form = AboutForm(request.POST or None, instance=obj)
@@ -97,14 +100,14 @@ def about_update_hx_view(request, id=None):
     context = {
         'form': form,
         'url': url,
-        'about': obj,
+        'object': obj,
     }
 
     # When form is submitted, render home-view
     if form.is_valid():
         new_obj = form.save(commit=False)
         new_obj.save()
-        context['about'] = new_obj
+        context['object'] = new_obj
 
         return render(request, 'home/partial/about.html', context=context)
 

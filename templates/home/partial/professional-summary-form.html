@@ -3,5 +3,8 @@
     {{ form.as_p }}
 
     <button class="btn btn-outline-success" type="submit">Save</button>
-    <a class="btn btn-outline-dark" href='/'>Cancel</a>
+    <button class="btn btn-outline-dark" type="button"
+        hx-get="{{ object.get_hx_read_url }}"
+        hx-target="#professional-summary"
+        hx-swap="innerHTML">Cancel</button>
 </form>

@@ -3,9 +3,10 @@
 {% block content %}
 <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5 text-dark" id="professional-summary">
-        {% include 'home/partial/professional-summary.html' with professional_summary=professional_summary%}
+        {% include 'home/partial/professional-summary.html' with object=professional_summary%}
     </div>
 </div>
+
 <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
 </div>
 
@@ -23,7 +24,7 @@
 
 <!-- About me -->
 <div class="row featurette" id="about-me">
-    {% include 'home/partial/about.html' with about=about %}
+    {% include 'home/partial/about.html' with object=about %}
 </div>
 
 {% endblock content %}
