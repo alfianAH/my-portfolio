@@ -5,8 +5,7 @@ from django.urls import reverse
 from .forms import EducationalPurposedProjectForm, GameCarouselForm, GameDetailForm, GameProjectForm, MyProjectForm
 from .models import (
     EducationalPurposedProject, 
-    GameCarousel, 
-    GameDetail, 
+    GameCarousel,
     GameProject, 
     MyProject
 )

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action='{% url 'home:setup' %}' method="post">
+    {% csrf_token %}
+    <h2 class="fw-bold">Professional summary</h2>
+    {{ professional_summary_form.as_p }}
+
+    <hr class="featurette-divider">
+
+    <h2 class="fw-bold">About</h2>
+    {{ about_form.as_p }}
+    <button type="submit" class="btn btn-outline-success">Save</button>
+    <button type="reset" class="btn btn-outline-light">Reset</button>
+</form>
+
+{% endblock content %}

@@ -6,12 +6,14 @@ from home.views import (
     professional_summary_update_hx_view,
     about_read_view,
     about_update_hx_view,
+    setup_view,
 )
 
 
 app_name = 'home'
 urlpatterns = [
     path('', home_view),
+    path('setup', setup_view, name='setup'),
     path('hx/prof-summary/<int:id>', professional_summary_read_hx_view, name='hx-professional-summary-read'),
 
     path('hx/prof-summary/<int:id>/edit', professional_summary_update_hx_view, name='hx-professional-summary-edit'),

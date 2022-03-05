@@ -18,7 +18,7 @@ class ProfessionalSummaryForm(forms.ModelForm):
 
         self.fields['title'].widget.attrs.update({
             'class': 'display-5 fw-bold',
-            'placeholder': 'Professional title. Ex: Hello',
+            'placeholder': 'Professional greet. Ex: Hello',
         })
 
         self.fields['content'].widget.attrs.update({
