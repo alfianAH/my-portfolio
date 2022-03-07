@@ -64,4 +64,11 @@ div.htmx-swapping {
     opacity: 0;
     transition: opacity 1s ease-out;
 }
-  
+
+.wrap-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
