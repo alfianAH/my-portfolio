@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6" id='game-card'>
     <div class="card shadow-sm">
         
         {% comment %} Carousel {% endcomment %}
@@ -40,10 +40,7 @@
                     <div class="btn-group me-2">
                         <button type="button" class="btn btn-outline-danger" id="delete-{{ game.slug }}"
                             hx-confirm="Are you sure want to delete {{ game.title }}?"
-                            hx-get="{{ game.get_delete_url }}"
-                            hx-target="#toast-container"
-                            hx-swap="afterbegin"
-                            _ ="on htmx:afterOnLoad wait 100ms then js showToast('toast-{{ game.slug }}') end">
+                            hx-delete="{{ game.get_delete_url }}">
                             Delete
                         </button>
                     </div>

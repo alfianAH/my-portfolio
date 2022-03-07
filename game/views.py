@@ -1,7 +1,7 @@
-from multiprocessing import context
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from .forms import EducationalPurposedProjectForm, GameCarouselForm, GameDetailForm, GameProjectForm, MyProjectForm
 from .models import (
@@ -93,11 +93,15 @@ def game_project_delete_view(request, slug=None):
     
     if request.htmx:    
         obj.delete()
-        context = {
-            'id': 'toast-{}'.format(obj_slug),
-            'content': 'Game "{}" deleted'.format(obj_title)
+        messages.success(request,
+            message='Game "{}" deleted'.format(obj_title),
+            extra_tags='toast-{}'.format(obj_slug))
+
+        headers = {
+            'hx-redirect': '/'
         }
-        return render(request, 'components/toast-template.html', context=context)
+
+        return HttpResponse("Success", headers=headers)
 
 @login_required
 def game_project_update_view(request, slug=None):
