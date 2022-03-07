@@ -17,13 +17,9 @@
 
 <!-- Projects -->
 <div class="row align-items-md-stretch" id="projects">
-    {% if my_projects %}
-        {% include 'game/project-template.html' with project_title='My Projects' projects=my_projects target='my-projects' %}
-    {% endif %}
+    {% include 'game/project-template.html' with project_title='My Projects' projects=my_projects target='my-projects' %}
 
-    {% if edu_projects %}
-        {% include 'game/project-template.html' with project_title='Educational Purposed Projects' projects=edu_projects target='edu-projects' %}
-    {% endif %}
+    {% include 'game/project-template.html' with project_title='Educational Purposed Projects' projects=edu_projects target='edu-projects' %}
 </div>
 
 <div id="create-update-game-modal"></div>
