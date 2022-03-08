@@ -18,7 +18,7 @@ class GameDetailInline(admin.StackedInline):
 
 
 class GameProjectAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'created', 'updated']
+    list_display = ['id', 'title', 'release_date', 'created', 'updated']
     readonly_fields = ['created', 'updated']
     inlines = [GameDetailInline, GameCarouselInline]
 

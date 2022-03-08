@@ -7,23 +7,35 @@ from .models import (
     MyProject
 )
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 
 class GameProjectForm(forms.ModelForm):
     class Meta:
         model = GameProject
-        fields = ['title', 'description', 'play_url']
+        fields = ['title', 'release_date', 'description', 'play_url']
+        widgets = {
+            'release_date': DateInput()
+        }
 
 
 class MyProjectForm(forms.ModelForm):
     class Meta:
         model = MyProject
-        fields = ['title', 'description', 'play_url']
+        fields = ['title', 'release_date', 'description', 'play_url']
+        widgets = {
+            'release_date': DateInput()
+        }
 
 
 class EducationalPurposedProjectForm(forms.ModelForm):
     class Meta:
         model = EducationalPurposedProject
-        fields = ['title', 'description', 'play_url']
+        fields = ['title', 'release_date', 'description', 'play_url']
+        widgets = {
+            'release_date': DateInput()
+        }
 
 
 class GameDetailForm(forms.ModelForm):

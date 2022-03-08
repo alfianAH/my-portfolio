@@ -17,6 +17,7 @@
                 <!-- Details -->
                 <ul class="list-unstyled mb-4">
                     <li><b>Status: </b>{{ game.gamedetail.get_status_display }}</li>
+                    <li><b>Release date: </b>{{ game.get_release_date }}</li>
                     <li><b>Platform: </b>{{ game.gamedetail.platform }}</li>
                     <li><b>Genre: </b>{{ game.gamedetail.genre }}</li>
                     <li><b>Engine: </b>{{ game.gamedetail.engine }}</li>

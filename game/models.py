@@ -1,12 +1,11 @@
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
+from django.utils import timezone
 
 from .utils import slugify_instance_title
 from home.validators import validate_url
 from my_portfolio.utils import DRIVE_PHOTO_URL
-
-import requests
 
 
 # Create your models here.
@@ -20,6 +19,7 @@ class GameProject(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     play_url = models.CharField(max_length=200, validators=[validate_url])
+    release_date = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -43,6 +43,9 @@ class GameProject(models.Model):
     
     def get_game_carousel(self):
         return self.gamecarousel_set.all()
+
+    def get_release_date(self):
+        return self.release_date.strftime('%B %Y')
 
 
 class GameDetail(models.Model):

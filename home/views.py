@@ -18,8 +18,8 @@ def home_view(request):
     if not professional_summary_qs.exists() or not about_qs.exists():
         return redirect('home:setup')
     
-    my_projects = MyProject.objects.all()
-    edu_projects = EducationalPurposedProject.objects.all()
+    my_projects = MyProject.objects.all().order_by('-release_date', 'title')
+    edu_projects = EducationalPurposedProject.objects.all().order_by('-release_date', 'title')
 
     professional_summary = professional_summary_qs[0]
     about = about_qs[0]
