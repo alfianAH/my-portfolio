@@ -32,7 +32,16 @@ class ProfessionalSummaryForm(forms.ModelForm):
 class AboutForm(forms.ModelForm):
     class Meta:
         model = About
-        fields = ['description', 'photo_url', 'resume_url']
+        fields = ['description', 'photo_url', 'resume_url', 
+            'email', 'github_url', 'linked_in_url', 'twitter_url']
+        
+        labels = {
+            'photo_url': 'Photo URL',
+            'resume_url': 'Resume URL',
+            'github_url': 'GitHub URL',
+            'linked_in_url': 'LinkedIn URL',
+            'twitter_url': 'Twitter URL',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
